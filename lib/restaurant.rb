@@ -1,6 +1,7 @@
 class Restaurant
 
 	@@filepath = nil
+	attr_accessor :name, :cuisine, :price
 	
 	def self.filepath=(path=nil)
 		@@filepath = File.join(APP_ROOT, path)
@@ -23,7 +24,6 @@ class Restaurant
 		return true
 	end
 	
-	
 	def self.create_file
 		# create the restaurant file
 		File.open(@@filepath, 'w') unless file_exists?
@@ -35,4 +35,11 @@ class Restaurant
 		# return instances of restaurant
 	end
 	
+	def save
+		return false unless Restaurant.file_usable?
+		File.open(@@filepath, 'a') do |file|
+			file.puts "#{[@name, @cuisine, @price].join("\t")}\n"
+		end
+		return true
+	end
 end
