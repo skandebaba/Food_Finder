@@ -1,4 +1,7 @@
+require 'support/number_helper'
+
 class Restaurant
+	include NumberHelper
 
 	@@filepath = nil
 	attr_accessor :name, :cuisine, :price
@@ -77,4 +80,9 @@ class Restaurant
 		end
 		return true
 	end
+
+	def formatted_price
+		number_to_currency(@price)
+	end
+	
 end
